@@ -12,10 +12,6 @@ var express = require('express'),
     User = require('./models/user'),
     flash = require('connect-flash');
 
-// MongoDB Atlas URI
-var uri =
-    'mongodb+srv://yelpcamp:yelpcamp@yelpcampcluster-xmqfw.mongodb.net/YelpCamp?retryWrites=true&w=majority';
-
 // Use connect-flash
 app.use(flash());
 
