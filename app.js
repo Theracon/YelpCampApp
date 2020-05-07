@@ -4,8 +4,6 @@ var express = require('express'),
     methodOverride = require('method-override'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    uri =
-    'mongodb+srv://yelpcamp:yelpcamp@yelpcampcluster-xmqfw.mongodb.net/YelpCamp?retryWrites=true&w=majority',
     Campground = require('./models/campground'),
     Comment = require('./models/comment'),
     seedDB = require('./seeds'),
@@ -13,6 +11,10 @@ var express = require('express'),
     LocalStrategy = require('passport-local'),
     User = require('./models/user'),
     flash = require('connect-flash');
+
+// MongoDB Atlas URI
+var uri =
+    'mongodb+srv://yelpcamp:yelpcamp@yelpcampcluster-xmqfw.mongodb.net/YelpCamp?retryWrites=true&w=majority';
 
 // Use connect-flash
 app.use(flash());
@@ -39,7 +41,10 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Connect mongoose to the database (i.e. Atlas Cluster)
-mongoose.connect(uri);
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 // use body-parser
 app.use(bodyParser.urlencoded({ entended: true }));
@@ -70,6 +75,6 @@ app.use('/campgrounds/:id/comments', commentRoutes);
 app.use('/', indexRoutes);
 
 // Listen port
-app.listen(8080, function() {
+app.listen(process.env.PORT, function() {
     console.log('YelpCamp server is running...');
 });
