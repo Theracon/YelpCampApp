@@ -13,7 +13,7 @@ var express = require('express'),
     flash = require('connect-flash'),
     url =
     process.env.MONGODB_URI ||
-    'mongodb+srv://yelpcamptest:yelpcamptest@yelpcamptestcluster-lqpca.mongodb.net/test?retryWrites=true&w=majority';
+    'mongodb+srv://yelpcamp:yelpcamp@yelpcampcluster-xmqfw.mongodb.net/test?retryWrites=true&w=majority';
 
 // Use connect-flash
 app.use(flash());
