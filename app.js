@@ -10,7 +10,10 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     User = require('./models/user'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    url =
+    process.env.MONGODB_URI ||
+    'mongodb+srv://yelpcamptest:yelpcamptest@yelpcamptestcluster-lqpca.mongodb.net/test?retryWrites=true&w=majority';
 
 // Use connect-flash
 app.use(flash());
@@ -37,11 +40,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Connect mongoose to the database (i.e. Atlas Cluster)
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-
+console.log(process.env.MONGODB_URI);
 // use body-parser
 app.use(bodyParser.urlencoded({ entended: true }));
 
